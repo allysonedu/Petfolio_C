@@ -1,7 +1,7 @@
 ﻿using Pefolio.communication.Enums;
 
 namespace Pefolio.communication.Requests;
-public class RequestRegisterPets
+public class RequestPets
 {
     public string Name {  get; set; } = string.Empty;
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Pefolio.communication.Requests;
 using Pefolio.communication.Responses;
+using Petfolio.Application.UseCases.Pets.Register;
 
 namespace Petfolio.API.Controllers;
 [Route("api/[controller]")]
@@ -11,6 +12,8 @@ public class PetsController : ControllerBase
     [ProducesResponseType(typeof(ResponseRegisterPets), StatusCodes.Status201Created)]
     public IActionResult Register([FromBody] RequestRegisterPets request)
     {
-        return Created();
+        var response = new RegisterPetsUseCase().Execute(request);
+
+        return Created(string.Empty, response);
     }
 }

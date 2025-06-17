@@ -2,6 +2,7 @@
 using Pefolio.communication.Requests;
 using Pefolio.communication.Responses;
 using Petfolio.Application.UseCases.Pets.GetAll;
+using Petfolio.Application.UseCases.Pets.GetById;
 using Petfolio.Application.UseCases.Pets.Register;
 using Petfolio.Application.UseCases.Pets.Update;
 
@@ -51,6 +52,20 @@ public class PetsController : ControllerBase
 
         }
         return Ok();
+    }
+
+    [HttpGet]
+    [Route("{id}")]
+    [ProducesResponseType(typeof(ResponsePets), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404NotFound)]
+
+    public IActionResult Get(int id)
+    {
+        var useCase = new GetByIdUseCase();
+        
+        var response = useCase.Execute(id);
+
+        return Ok(response);
     }
 
 }

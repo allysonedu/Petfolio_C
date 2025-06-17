@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Pefolio.communication.Requests;
 using Pefolio.communication.Responses;
+using Petfolio.Application.UseCases.Pets.GetAll;
 using Petfolio.Application.UseCases.Pets.Register;
 using Petfolio.Application.UseCases.Pets.Update;
 
@@ -33,6 +34,23 @@ public class PetsController : ControllerBase
         useCase.Execute(id, request);
 
         return NoContent();
+    }
+
+    [HttpGet]
+    [ProducesResponseType(typeof(ResponseAllPets), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+
+    public IActionResult GetAll()
+    {
+        var useCase = new GetAllPetsUseCase();
+        var response = useCase.Exexute();
+
+        if (response.Pets.Any())
+        {
+            return Ok(response);
+
+        }
+        return Ok();
     }
 
 }
